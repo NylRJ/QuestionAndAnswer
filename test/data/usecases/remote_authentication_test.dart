@@ -14,17 +14,17 @@ void main() {
   RemoteAuthentication sut;
   HttpClientSpy httpClient;
   String url;
+  AuthenticationParams parms;
 
   setUp(() {
     //Arrange
     httpClient = HttpClientSpy();
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
+    parms = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
   });
-
+ 
   test('Should call HttpClient with correct URL', () async {
-    final parms = AuthenticationParams(
-        email: faker.internet.email(), secret: faker.internet.password());
     await sut.auth(parms);
 
     verify(httpClient.request(
@@ -40,8 +40,6 @@ void main() {
             body: anyNamed('body')))
         .thenThrow(HttpError.badRequest);
 
-    final parms = AuthenticationParams(
-        email: faker.internet.email(), secret: faker.internet.password());
     final future = sut.auth(parms);
 
     expect(future, throwsA(DomainError.unexpected));
