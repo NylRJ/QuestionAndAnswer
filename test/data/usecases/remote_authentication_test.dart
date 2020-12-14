@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:fordev/domain/usercases/authentication.dart';
+import 'package:fordev/domain/usecases/usecases.dart';
 
 import 'package:fordev/data/usecases/usecases.dart';
 import 'package:fordev/data/http/http.dart';
@@ -101,5 +101,19 @@ void main() {
     final account = await sut.auth(parms);
 
     expect(account.token, accessToken);
+  });
+
+  test(
+      'Should  throw UnexpectedError if HttpClient returns 200 with invalid data',
+      () async {
+    when(httpClient.request(
+            url: anyNamed('url'),
+            method: anyNamed('method'),
+            body: anyNamed('body')))
+        .thenAnswer((_) async => {'invalid_key': 'invalid_value'});
+
+    final future = sut.auth(parms);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
