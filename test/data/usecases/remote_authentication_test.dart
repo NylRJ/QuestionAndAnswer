@@ -21,9 +21,10 @@ void main() {
     httpClient = HttpClientSpy();
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
-    parms = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
+    parms = AuthenticationParams(
+        email: faker.internet.email(), secret: faker.internet.password());
   });
- 
+
   test('Should call HttpClient with correct URL', () async {
     await sut.auth(parms);
 
@@ -44,13 +45,25 @@ void main() {
 
     expect(future, throwsA(DomainError.unexpected));
   });
-  
+
   test('Should throw UnexpectedError if HttpClient returns 404', () async {
     when(httpClient.request(
             url: anyNamed('url'),
             method: anyNamed('method'),
             body: anyNamed('body')))
         .thenThrow(HttpError.notFound);
+
+    final future = sut.auth(parms);
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
+
+  test('Should throw UnexpectedError if HttpClient returns 500', () async {
+    when(httpClient.request(
+            url: anyNamed('url'),
+            method: anyNamed('method'),
+            body: anyNamed('body')))
+        .thenThrow(HttpError.serverError);
 
     final future = sut.auth(parms);
 
