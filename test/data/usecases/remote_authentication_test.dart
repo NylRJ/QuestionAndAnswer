@@ -26,6 +26,12 @@ void main() {
   });
 
   test('Should call HttpClient with correct URL', () async {
+    when(httpClient.request(
+            url: anyNamed('url'),
+            method: anyNamed('method'),
+            body: anyNamed('body')))
+        .thenAnswer((_) async =>
+            {'accessToken': faker.guid.guid(), 'name': faker.person.name()});
     await sut.auth(parms);
 
     verify(httpClient.request(
@@ -70,8 +76,8 @@ void main() {
     expect(future, throwsA(DomainError.unexpected));
   });
 
-  
-  test('Should throw InvalidCredentialsError if HttpClient returns 401', () async {
+  test('Should throw InvalidCredentialsError if HttpClient returns 401',
+      () async {
     when(httpClient.request(
             url: anyNamed('url'),
             method: anyNamed('method'),
@@ -81,5 +87,19 @@ void main() {
     final future = sut.auth(parms);
 
     expect(future, throwsA(DomainError.invalidCredentials));
+  });
+
+  test('Should  return an Account if HttpClient returns 200', () async {
+    final accessToken = faker.guid.guid();
+    when(httpClient.request(
+            url: anyNamed('url'),
+            method: anyNamed('method'),
+            body: anyNamed('body')))
+        .thenAnswer((_) async =>
+            {'accessToken': accessToken, 'name': faker.person.name()});
+
+    final account = await sut.auth(parms);
+
+    expect(account.token, accessToken);
   });
 }
