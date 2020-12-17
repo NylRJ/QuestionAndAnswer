@@ -20,14 +20,20 @@ void main() {
     url = faker.internet.httpUrl();
   });
 
+  group('shared', () {
+    test('Should throw ServerError if invalid method is provided', () async {
+      final future = sut.request(url: url, method: 'invlid_method');
+
+      expect(future, throwsA(HttpError.serverError));
+    });
+  });
+
   group('post', () {
     PostExpectation mockRequest() => when(
         client.post(any, body: anyNamed('body'), headers: anyNamed('headers')));
 
-    void mockResponse(
-      int statusCode,
-      {String body = '{"any_key":"any_value"}'}
-      ) {
+    void mockResponse(int statusCode,
+        {String body = '{"any_key":"any_value"}'}) {
       mockRequest().thenAnswer((_) async => Response(body, statusCode));
     }
 
@@ -114,7 +120,7 @@ void main() {
 
       expect(future, throwsA(HttpError.forbidden));
     });
-    
+
     test('Should return NotFoundError if post returns 404', () async {
       mockResponse(404);
 
