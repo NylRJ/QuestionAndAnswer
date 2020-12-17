@@ -24,8 +24,10 @@ void main() {
     PostExpectation mockRequest() => when(
         client.post(any, body: anyNamed('body'), headers: anyNamed('headers')));
 
-    void mockResponse(int statusCode,
-        {String body = '{"any_key":"any_value"}'}) {
+    void mockResponse(
+      int statusCode,
+      {String body = '{"any_key":"any_value"}'}
+      ) {
       mockRequest().thenAnswer((_) async => Response(body, statusCode));
     }
 
@@ -111,6 +113,14 @@ void main() {
       final future = sut.request(url: url, method: 'post');
 
       expect(future, throwsA(HttpError.forbidden));
+    });
+    
+    test('Should return NotFoundError if post returns 404', () async {
+      mockResponse(404);
+
+      final future = sut.request(url: url, method: 'post');
+
+      expect(future, throwsA(HttpError.notFound));
     });
     test('Should return ServerError if post returns 500', () async {
       mockResponse(500);
