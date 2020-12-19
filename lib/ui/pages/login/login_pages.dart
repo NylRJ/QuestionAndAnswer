@@ -50,7 +50,9 @@ class LoiginPage extends StatelessWidget {
                             return TextFormField(
                               decoration: InputDecoration(
                                 labelText: 'Senha',
-                                errorText: snapshot.data,
+                                errorText: snapshot.data?.isEmpty == true
+                                    ? null
+                                    : snapshot.data,
                                 icon: Icon(
                                   Icons.lock,
                                   color: Theme.of(context).primaryColorLight,
