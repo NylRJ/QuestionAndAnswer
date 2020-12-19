@@ -44,17 +44,22 @@ class LoiginPage extends StatelessWidget {
                         }),
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 32),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Senha',
-                          icon: Icon(
-                            Icons.lock,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                        ),
-                        obscureText: true,
-                        onChanged: presente.validatePassword,
-                      ),
+                      child: StreamBuilder<String>(
+                          stream: presente.passwordErrorStream,
+                          builder: (context, snapshot) {
+                            return TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Senha',
+                                errorText: snapshot.data,
+                                icon: Icon(
+                                  Icons.lock,
+                                  color: Theme.of(context).primaryColorLight,
+                                ),
+                              ),
+                              obscureText: true,
+                              onChanged: presente.validatePassword,
+                            );
+                          }),
                     ),
                     RaisedButton(
                       onPressed: null,
