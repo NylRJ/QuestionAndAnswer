@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../components/components.dart';
 
 class LoiginPage extends StatelessWidget {
+  GlobalKey formKeyLogin = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,10 +14,13 @@ class LoiginPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             LoginHeader(),
-            HeadLine1(text: 'Login',),
+            HeadLine1(
+              text: 'Login',
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
+                key: formKeyLogin,
                 child: Column(
                   children: [
                     TextFormField(
@@ -42,7 +46,7 @@ class LoiginPage extends StatelessWidget {
                       ),
                     ),
                     RaisedButton(
-                      onPressed: () {},
+                      onPressed: null,
                       child: Text('Entrar'.toUpperCase()),
                     ),
                     FlatButton.icon(
