@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import '../components/components.dart';
 
 class LoiginPage extends StatelessWidget {
-  GlobalKey formKeyLogin = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,6 @@ class LoiginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
-                key: formKeyLogin,
                 child: Column(
                   children: [
                     TextFormField(
