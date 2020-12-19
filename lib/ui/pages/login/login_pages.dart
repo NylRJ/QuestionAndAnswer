@@ -26,22 +26,22 @@ class LoiginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     StreamBuilder<String>(
-                      stream: presente.emailErrorStream,
-                      builder: (context, snapshot) {
-                        return TextFormField(
-                          decoration: InputDecoration(
-                              labelText: 'Email',
-                              errorText: snapshot.data,
-                              icon: Icon(
-                                Icons.email,
-                                color: Theme.of(context).primaryColorLight,
-                              )),
-                              
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: presente.validateEmail,
-                        );
-                      }
-                    ),
+                        stream: presente.emailErrorStream,
+                        builder: (context, snapshot) {
+                          return TextFormField(
+                            decoration: InputDecoration(
+                                labelText: 'Email',
+                                errorText: snapshot.data?.isEmpty == true
+                                    ? null
+                                    : snapshot.data,
+                                icon: Icon(
+                                  Icons.email,
+                                  color: Theme.of(context).primaryColorLight,
+                                )),
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: presente.validateEmail,
+                          );
+                        }),
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 32),
                       child: TextFormField(
