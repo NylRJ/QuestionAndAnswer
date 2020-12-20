@@ -4,17 +4,29 @@ import 'package:flutter/services.dart';
 import '../../components/components.dart';
 import '../pages.dart';
 
-class LoiginPage extends StatelessWidget {
+class LoiginPage extends StatefulWidget {
   final LoginPresenter presente;
 
   const LoiginPage({Key key, this.presente}) : super(key: key);
+
+  @override
+  _LoiginPageState createState() => _LoiginPageState();
+}
+
+class _LoiginPageState extends State<LoiginPage> {
+  @override
+  void dispose() {
+    super.dispose();
+    widget.presente.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: Builder(
         builder: (context) {
-          presente.isLoadingErrorStream.listen((isLoading) {
+          widget.presente.isLoadingErrorStream.listen((isLoading) {
             if (isLoading) {
               showDialog(
                 context: context,
@@ -43,12 +55,15 @@ class LoiginPage extends StatelessWidget {
               }
             }
           });
-          presente.mainErrorStream.listen((error) {
+          widget.presente.mainErrorStream.listen((error) {
             if (error != null) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.red[900],
-                  content: Text(error,textAlign: TextAlign.center,),
+                  content: Text(
+                    error,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               );
             }
@@ -68,7 +83,7 @@ class LoiginPage extends StatelessWidget {
                     child: Column(
                       children: [
                         StreamBuilder<String>(
-                            stream: presente.emailErrorStream,
+                            stream: widget.presente.emailErrorStream,
                             builder: (context, snapshot) {
                               return TextFormField(
                                 decoration: InputDecoration(
@@ -82,13 +97,13 @@ class LoiginPage extends StatelessWidget {
                                           Theme.of(context).primaryColorLight,
                                     )),
                                 keyboardType: TextInputType.emailAddress,
-                                onChanged: presente.validateEmail,
+                                onChanged: widget.presente.validateEmail,
                               );
                             }),
                         Padding(
                           padding: const EdgeInsets.only(top: 8, bottom: 32),
                           child: StreamBuilder<String>(
-                              stream: presente.passwordErrorStream,
+                              stream: widget.presente.passwordErrorStream,
                               builder: (context, snapshot) {
                                 return TextFormField(
                                   decoration: InputDecoration(
@@ -103,16 +118,16 @@ class LoiginPage extends StatelessWidget {
                                     ),
                                   ),
                                   obscureText: true,
-                                  onChanged: presente.validatePassword,
+                                  onChanged: widget.presente.validatePassword,
                                 );
                               }),
                         ),
                         StreamBuilder<bool>(
-                            stream: presente.isFormValidErrorStream,
+                            stream: widget.presente.isFormValidErrorStream,
                             builder: (context, snapshot) {
                               return RaisedButton(
                                 onPressed: snapshot.data == true
-                                    ? presente.auth
+                                    ? widget.presente.auth
                                     : null,
                                 child: Text('Entrar'.toUpperCase()),
                               );
