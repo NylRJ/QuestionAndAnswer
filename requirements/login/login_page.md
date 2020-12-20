@@ -12,7 +12,7 @@
 09. ✅ Remover mensagem de erro se a senha for válida
 10. ✅ Habilitar o botão de fazer login se todos os campos forem válidos
 11. ✅ Desabilitar o botão de fazer login se algum campo for inválido
-12. Exibir loading no início da ação de login
+12. ✅ Exibir loading no início da ação de login
 13. ✅ Chamar metodo de Autenticar
 14. Exibir mensagem de erro caso o login falhe
 15. Gravar o token do usuário no cache para mantê-lo conectado
