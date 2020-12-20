@@ -18,21 +18,29 @@ class LoiginPage extends StatelessWidget {
             if (isLoading) {
               showDialog(
                 context: context,
-                barrierDismissible:false, 
+                barrierDismissible: false,
                 child: SimpleDialog(
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircularProgressIndicator(),
-                        SizedBox(height: 10,),
-                        Text('Aguarde...',textAlign: TextAlign.center,)
-
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Aguarde...',
+                          textAlign: TextAlign.center,
+                        )
                       ],
                     ),
                   ],
                 ),
-                );
+              );
+            } else {
+              if (Navigator.canPop(context)) {
+                Navigator.of(context).pop();
+              }
             }
           });
 
