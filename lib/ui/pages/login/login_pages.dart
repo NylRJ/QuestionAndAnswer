@@ -28,31 +28,9 @@ class _LoiginPageState extends State<LoiginPage> {
         builder: (context) {
           widget.presente.isLoadingErrorStream.listen((isLoading) {
             if (isLoading) {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                child: SimpleDialog(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Aguarde...',
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              );
+              showloading(context);
             } else {
-              if (Navigator.canPop(context)) {
-                Navigator.of(context).pop();
-              }
+              hideLoading(context);
             }
           });
           widget.presente.mainErrorStream.listen((error) {
