@@ -1,8 +1,8 @@
 # Login Presenter
 
 > ## Regras
-1.  
-2. Notificar o emailErrorStream com o resultado do Validation
+1. ✅ Chamar Validation  ao alterar email 
+2. ✅ Notificar o emailErrorStream com o resultado do Validation
 3. Notificar o isFormValidStream após validar o email
 4. Validar senha com o Validation
 5. Notificar o passwordErrorStream com o resultado do Validation
