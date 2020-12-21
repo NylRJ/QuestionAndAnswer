@@ -19,17 +19,22 @@ class StreamLoginPresenter {
 }
 
 void main() {
-  test('Shuolt call Validation with correct email', () {
-    //Arrange
-    final validation = ValidationSpy();
-    final sut = StreamLoginPresenter(validation: validation);
-    final email = faker.internet.email();
+  //variaveis Globais do Arrange
+  ValidationSpy validation;
+  StreamLoginPresenter sut;
+  String email;
 
+  setUp(() {
+    //Instanciando as variaveis Globais
+    validation = ValidationSpy();
+    sut = StreamLoginPresenter(validation: validation);
+    email = faker.internet.email();
+  });
+  test('Shuolt call Validation with correct email', () {
     //Act
     sut.validateEmail(email);
 
     //Assert
-
     verify(validation.validate(field: 'email', value: email)).called(1);
   });
 }
