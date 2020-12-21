@@ -61,16 +61,7 @@ class _LoiginPageState extends State<LoiginPage> {
                             padding: const EdgeInsets.only(top: 8, bottom: 32),
                             child: PasswordInput(),
                           ),
-                          StreamBuilder<bool>(
-                              stream: widget.presente.isFormValidErrorStream,
-                              builder: (context, snapshot) {
-                                return RaisedButton(
-                                  onPressed: snapshot.data == true
-                                      ? widget.presente.auth
-                                      : null,
-                                  child: Text('Entrar'.toUpperCase()),
-                                );
-                              }),
+                          LoginButton(),
                           FlatButton.icon(
                             onPressed: () {},
                             icon: Icon(Icons.person),
@@ -89,4 +80,5 @@ class _LoiginPageState extends State<LoiginPage> {
     );
   }
 }
+
 
