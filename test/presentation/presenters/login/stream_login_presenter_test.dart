@@ -27,7 +27,7 @@ void main() {
     email = faker.internet.email();
     mockValidation();
   });
-  test('Shuolt call Validation with correct email', () {
+  test('Should call Validation with correct email', () {
     //Act
     sut.validateEmail(email);
 
@@ -35,7 +35,7 @@ void main() {
     verify(validation.validate(field: 'email', value: email)).called(1);
   });
 
-  test('Shuolt emti email error if validation fails', () {
+  test('Should emti email error if validation fails', () {
     //Arrange
     mockValidation(value: 'error');
     //Assert later
@@ -44,6 +44,19 @@ void main() {
     
 
     //Act
+    sut.validateEmail(email);
+    sut.validateEmail(email);
+    
+  });
+
+
+
+  test('Should emti email null if validation succeeds', () {
+    
+    sut.emailErrorStream.listen(expectAsync1((error) => expect(error, null)));
+    sut.isFormValidErrorStream.listen(expectAsync1((isValid) => expect(isValid, false)));
+    
+
     sut.validateEmail(email);
     sut.validateEmail(email);
     
