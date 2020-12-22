@@ -71,4 +71,19 @@ void main() {
     //Assert
     verify(validation.validate(field: 'password', value: password)).called(1);
   });
+
+  
+  test('Should emti password error if validation fails', () {
+    //Arrange
+    mockValidation(value: 'error');
+    //Assert later
+    sut.passwordErrorStream.listen(expectAsync1((error) => expect(error, 'error')));
+    sut.isFormValidErrorStream.listen(expectAsync1((isValid) => expect(isValid, false)));
+    
+
+    //Act
+    sut.validatePassword(password);
+    sut.validatePassword(password);
+    
+  });
 }
