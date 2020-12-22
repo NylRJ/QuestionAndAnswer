@@ -20,7 +20,7 @@ class StreamLoginPresenter {
   Stream<String> get passwordErrorStream =>
       _controller.stream.map((state) => state.passwordError).distinct();
 
-  Stream<bool> get isFormValidErrorStream =>
+  Stream<bool> get isFormValidStream =>
       _controller.stream.map((state) => state.isFormValid).distinct();
 
   StreamLoginPresenter({@required this.validation});
