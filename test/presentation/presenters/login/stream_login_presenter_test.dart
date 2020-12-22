@@ -5,10 +5,6 @@ import 'package:mockito/mockito.dart';
 import 'package:fordev/presentation/presenters/presenters.dart';
 import 'package:fordev/presentation/protocols/protocols.dart';
 
-
-
-
-
 class ValidationSpy extends Mock implements Validation {}
 
 void main() {
@@ -43,9 +39,12 @@ void main() {
     //Arrange
     mockValidation(value: 'error');
     //Assert later
-    expectLater(sut.emailErrorStream, emits('error'));
+    sut.emailErrorStream.listen(expectAsync1((error) => expect(error, 'error')));
+    
 
     //Act
     sut.validateEmail(email);
+    sut.validateEmail(email);
+    
   });
 }
