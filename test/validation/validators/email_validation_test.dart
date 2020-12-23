@@ -21,4 +21,8 @@ void main() {
   test('Should return  null if email is valid', () {
     expect(sut.validate('moises.souza@gmail.com'), null);
   });
+  
+  test('Should return  error if email is invalid', () {
+    expect(sut.validate('moises.souza'), 'Campo Inválido');
+  });
 }
