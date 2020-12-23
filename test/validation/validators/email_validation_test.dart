@@ -1,16 +1,9 @@
 import 'package:test/test.dart';
 
-import 'package:fordev/validation/protocols/protocols.dart';
+import 'package:fordev/validation/validators/validations.dart';
 
-class EmailValidation implements FieldValidation {
-  final String field;
 
-  EmailValidation(this.field);
 
-  String validate(String value) {
-    return null;
-  }
-}
 
 void main() {
   EmailValidation sut;
@@ -21,8 +14,8 @@ void main() {
     expect(sut.validate(''), null);
   });
 
-   test('Should return  null if email is null', () {
-    expect(sut.validate(null), null);
+  test('Should return  null if email is null', () {
+      expect(sut.validate(null), null);
   });
 
   test('Should return  null if email is valid', () {
