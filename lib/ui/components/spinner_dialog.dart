@@ -5,7 +5,7 @@ void showloading(BuildContext context) {
     context: context,
     barrierDismissible: false,
     child: SimpleDialog(
-      children: [
+      children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

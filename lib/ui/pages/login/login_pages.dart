@@ -6,16 +6,16 @@ import '../pages.dart';
 import '../../components/components.dart';
 import 'components/components.dart';
 
-class LoiginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   final LoginPresenter presente;
 
-  const LoiginPage({Key key, this.presente}) : super(key: key);
+  const LoginPage(this.presente);
 
   @override
-  _LoiginPageState createState() => _LoiginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoiginPageState extends State<LoiginPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
@@ -28,7 +28,7 @@ class _LoiginPageState extends State<LoiginPage> {
       backgroundColor: Colors.grey[300],
       body: Builder(
         builder: (context) {
-          widget.presente.isLoadingErrorStream.listen((isLoading) {
+          widget.presente.isLoadingStream.listen((isLoading) {
             if (isLoading) {
               showloading(context);
             } else {
@@ -37,7 +37,7 @@ class _LoiginPageState extends State<LoiginPage> {
           });
           widget.presente.mainErrorStream.listen((error) {
             if (error != null) {
-              showErrorMessage(context,error);
+              showErrorMessage(context, error);
             }
           });
 
@@ -53,7 +53,7 @@ class _LoiginPageState extends State<LoiginPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Provider(
                     create: (_) => widget.presente,
-                      child: Form(
+                    child: Form(
                       child: Column(
                         children: [
                           EmailInput(),
@@ -80,5 +80,3 @@ class _LoiginPageState extends State<LoiginPage> {
     );
   }
 }
-
-

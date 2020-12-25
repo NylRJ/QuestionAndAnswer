@@ -32,9 +32,9 @@ void main() {
         .thenAnswer((_) => passwordErrorController.stream);
     when(presenter.mainErrorStream)
         .thenAnswer((_) => mainErrorController.stream);
-    when(presenter.isFormValidErrorStream)
+    when(presenter.isFormValidStream)
         .thenAnswer((_) => isFormValidController.stream);
-    when(presenter.isLoadingErrorStream)
+    when(presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
   }
 
@@ -52,9 +52,7 @@ void main() {
     mockStreams();
 
     final loginPage = MaterialApp(
-        home: LoiginPage(
-      presente: presenter,
-    ));
+        home: LoginPage(presenter));
     await tester.pumpWidget(loginPage);
   }
 
