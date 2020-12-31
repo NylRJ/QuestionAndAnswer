@@ -1,7 +1,7 @@
 
 import 'package:test/test.dart';
 
-import 'package:fordev/validation/validators/validations.dart';
+import 'package:fordev/validation/validators/validators.dart';
 
 
 void main() {
