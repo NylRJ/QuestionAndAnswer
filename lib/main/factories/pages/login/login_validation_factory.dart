@@ -4,7 +4,7 @@ import '../../../../validation/validators/validations.dart';
 
 Validation makeValidationComposite() {
   return ValidationComposite(makeLoginValidation());
-}
+} 
 
 List<FieldValidation> makeLoginValidation() {
   return [

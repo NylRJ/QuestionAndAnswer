@@ -23,7 +23,7 @@
             "program": "test/"
         },
         {
-            "name": "Flutter",
+            "name": "Flutter Pixel",
             "type": "dart",
             "request": "launch",
             "program": "lib/main/main.dart"

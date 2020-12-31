@@ -16,6 +16,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
+void _hideKeyBord() {
+      final correntFocus = FocusScope.of(context);
+      if (!correntFocus.hasPrimaryFocus) {
+        correntFocus.unfocus();
+      }
+    }
+
   @override
   void dispose() {
     super.dispose();
@@ -24,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: Builder(
@@ -41,38 +50,42 @@ class _LoginPageState extends State<LoginPage> {
             }
           });
 
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                LoginHeader(),
-                HeadLine1(
-                  text: 'Login',
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Provider(
-                    create: (_) => widget.presente,
-                    child: Form(
-                      child: Column(
-                        children: [
-                          EmailInput(),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 32),
-                            child: PasswordInput(),
-                          ),
-                          LoginButton(),
-                          FlatButton.icon(
-                            onPressed: () {},
-                            icon: Icon(Icons.person),
-                            label: Text('Criar Conta'),
-                          ),
-                        ],
+          return GestureDetector(
+            onTap: _hideKeyBord,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  LoginHeader(),
+                  HeadLine1(
+                    text: 'Login',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Provider(
+                      create: (_) => widget.presente,
+                      child: Form(
+                        child: Column(
+                          children: [
+                            EmailInput(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8, bottom: 32),
+                              child: PasswordInput(),
+                            ),
+                            LoginButton(),
+                            FlatButton.icon(
+                              onPressed: () {},
+                              icon: Icon(Icons.person),
+                              label: Text('Criar Conta'),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
