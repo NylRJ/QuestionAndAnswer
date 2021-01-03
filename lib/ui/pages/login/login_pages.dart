@@ -1,69 +1,55 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../pages.dart';
-
-import '../../components/components.dart';
-import 'components/components.dart';
-
-class LoginPage extends StatefulWidget {
-  final LoginPresenter presente;
-
-  const LoginPage(this.presente);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+  import 'package:flutter/material.dart';
   
-void _hideKeyBord() {
-      final correntFocus = FocusScope.of(context);
-      if (!correntFocus.hasPrimaryFocus) {
-        correntFocus.unfocus();
+  import 'login_presenter.dart';
+
+  import '../../components/components.dart';
+  import 'components/components.dart';
+
+  class LoginPage extends StatelessWidget {
+    final LoginPresenter presente;
+
+    const LoginPage(this.presente);
+  
+
+    @override
+    Widget build(BuildContext context) {
+        void _hideKeyBord() {
+        final correntFocus = FocusScope.of(context);
+        if (!correntFocus.hasPrimaryFocus) {
+          correntFocus.unfocus();
+        }
       }
-    }
 
-  @override
-  void dispose() {
-    super.dispose();
-    widget.presente.dispose();
-  }
+      
+      return Scaffold(
+        backgroundColor: Colors.grey[300],
+        body: Builder(
+          builder: (context) {
+            presente.isLoading.listen((isLoading) {
+              if (isLoading) {
+                showloading(context);
+              } else {
+                hideLoading(context);
+              }
+            });
+            presente.mainError.listen((error) {
+              if (error != null) {
+                showErrorMessage(context, error);
+              }
+            });
 
-  @override
-  Widget build(BuildContext context) {
-    
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: Builder(
-        builder: (context) {
-          widget.presente.isLoadingStream.listen((isLoading) {
-            if (isLoading) {
-              showloading(context);
-            } else {
-              hideLoading(context);
-            }
-          });
-          widget.presente.mainErrorStream.listen((error) {
-            if (error != null) {
-              showErrorMessage(context, error);
-            }
-          });
-
-          return GestureDetector(
-            onTap: _hideKeyBord,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  LoginHeader(),
-                  HeadLine1(
-                    text: 'Login',
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Provider(
-                      create: (_) => widget.presente,
+            return GestureDetector(
+              onTap: _hideKeyBord,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    LoginHeader(),
+                    HeadLine1(
+                      text: 'Login',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Form(
                         child: Column(
                           children: [
@@ -83,13 +69,12 @@ void _hideKeyBord() {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+    }
   }
-}

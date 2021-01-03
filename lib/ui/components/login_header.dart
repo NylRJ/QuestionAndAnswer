@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
 class LoginHeader extends StatelessWidget {
-
- 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Container(
       height: 240,

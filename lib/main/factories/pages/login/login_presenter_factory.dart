@@ -3,19 +3,8 @@ import '../../../../ui/pages/pages.dart';
 import '../../factories.dart';
 
 
-LoginPresenter makeStreamLoginPresenter() {
-
-  return StreamLoginPresenter(
-      authentication: makeRemoteAuthentication(),
-      validation: makeValidationComposite());
-
-}
-  
-
-  LoginPresenter makeGetxLoginPresenter() {
-
+LoginPresenter makeGetxLoginPresenter() {
   return GetxLoginPresenter(
       authentication: makeRemoteAuthentication(),
       validation: makeValidationComposite());
-
 }
