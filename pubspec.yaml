@@ -31,6 +31,7 @@ dependencies:
   http: ^0.12.2
   equatable: ^1.2.5
   get: ^3.24.0
+  provider: 
 
 dev_dependencies:
   flutter_test:

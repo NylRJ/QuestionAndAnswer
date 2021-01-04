@@ -3,9 +3,9 @@ import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'package:fordev/infra/http/http.dart';
-
 import 'package:fordev/data/http/http.dart';
+
+import 'package:fordev/infra/http/http.dart';
 
 class ClientSpy extends Mock implements Client {}
 
@@ -22,18 +22,17 @@ void main() {
 
   group('shared', () {
     test('Should throw ServerError if invalid method is provided', () async {
-      final future = sut.request(url: url, method: 'invlid_method');
+      final future = sut.request(url: url, method: 'invalid_method');
 
       expect(future, throwsA(HttpError.serverError));
     });
   });
 
   group('post', () {
-    PostExpectation mockRequest() => when(
-        client.post(any, body: anyNamed('body'), headers: anyNamed('headers')));
+    PostExpectation mockRequest() =>
+      when(client.post(any, body: anyNamed('body'), headers: anyNamed('headers')));
 
-    void mockResponse(int statusCode,
-        {String body = '{"any_key":"any_value"}'}) {
+    void mockResponse(int statusCode, {String body = '{"any_key":"any_value"}'}) {
       mockRequest().thenAnswer((_) async => Response(body, statusCode));
     }
 
@@ -46,21 +45,25 @@ void main() {
     });
 
     test('Should call post with correct values', () async {
-      await sut
-          .request(url: url, method: 'post', body: {'any_key': 'any_value'});
+      await sut.request(url: url, method: 'post', body: {'any_key': 'any_value'});
 
-      verify(client.post(url,
-          headers: {
-            'content-type': 'application/json',
-            'accept': 'application/json'
-          },
-          body: '{"any_key":"any_value"}'));
+      verify(client.post(
+        url,
+        headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json'
+        },
+        body: '{"any_key":"any_value"}'
+      ));
     });
 
     test('Should call post without body', () async {
       await sut.request(url: url, method: 'post');
 
-      verify(client.post(any, headers: anyNamed('headers')));
+      verify(client.post(
+        any,
+        headers: anyNamed('headers')
+      ));
     });
 
     test('Should return data if post returns 200', () async {
@@ -94,7 +97,7 @@ void main() {
     });
 
     test('Should return BadRequestError if post returns 400', () async {
-      mockResponse(400);
+      mockResponse(400, body: '');
 
       final future = sut.request(url: url, method: 'post');
 
@@ -102,7 +105,7 @@ void main() {
     });
 
     test('Should return BadRequestError if post returns 400', () async {
-      mockResponse(400, body: '');
+      mockResponse(400);
 
       final future = sut.request(url: url, method: 'post');
 
@@ -132,6 +135,7 @@ void main() {
 
       expect(future, throwsA(HttpError.notFound));
     });
+
     test('Should return ServerError if post returns 500', () async {
       mockResponse(500);
 

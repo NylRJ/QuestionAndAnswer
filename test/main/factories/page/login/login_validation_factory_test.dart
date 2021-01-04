@@ -6,7 +6,7 @@ import 'package:fordev/main/factories/factories.dart';
 
 void main() {
   test('Shuold return the corret validation', () {
-    final validations = makeLoginValidation();
+    final validations = makeLoginValidations();
     expect(
       validations,[
     RequiredFieldValidation('email'),

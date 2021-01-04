@@ -6,7 +6,3 @@ enum HttpError {
   forbidden,
   invalidData
 }
-
-
-
-

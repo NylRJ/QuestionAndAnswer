@@ -6,13 +6,9 @@ class ValidationBuilder {
   String fieldName;
   List<FieldValidation> validations = [];
 
-  //construtor privado
-  ValidationBuilder._();
-
   static ValidationBuilder field(String fieldName) {
-    _instance = ValidationBuilder._();
+    _instance = ValidationBuilder();
     _instance.fieldName = fieldName;
-
     return _instance;
   }
 
